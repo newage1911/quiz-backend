@@ -3,6 +3,7 @@ import { InsertResult, Repository } from "typeorm";
 import { Quiz } from "src/entities/quiz.entity";
 import { Answer } from "src/entities/answer.entity";
 import { User } from "src/entities/user.entity";
+import { quizSocket } from "src/utils/quizSocket";
 
 @Injectable()
 export class quizService {
@@ -25,10 +26,13 @@ export class quizService {
         var check = await this.findByUidAndQuiz(uid, number)
         console.log(check)
             if (check) {
-                return this.updateQuiz(quiz)
+                this.updateQuiz(quiz)
             } else {
-                return this.newQuiz(quiz)
+                this.newQuiz(quiz)
             }
+        const scoreBoardData: any[] = await this.getScoreBoard()
+        return  quizSocket?.socket?.emit('update', scoreBoardData)
+        
     }
 
     async newQuiz(quiz: Quiz): Promise<InsertResult> {
