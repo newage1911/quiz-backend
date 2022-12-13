@@ -9,11 +9,11 @@ export const databaseProvider = [
         useFactory: async () => 
             await createConnection({
                 type: 'postgres',
-                host: 'localhost',
+                host: 'orientation-game.cjbvfnmytbzx.ap-southeast-1.rds.amazonaws.com',
                 port: 5432,
                 username: 'postgres',
-                password: '1234',
-                database: 'postgres',
+                password: 'wZjE47ytv5gbQaK6nPT7VhrBGXmFAQZm',
+                database: 'orientation-game',
                 entities: [Quiz, Answer, User],
                 synchronize: true,
                 ssl: false
